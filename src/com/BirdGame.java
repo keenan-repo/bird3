@@ -1,6 +1,6 @@
 package com;
 
-import java.awt.image.BufferedImage;
+
 import java.io.IOException;
 
 import org.newdawn.slick.AppGameContainer;
@@ -8,9 +8,8 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
+
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
 
 import com.img.ImageLoader;
 import com.img.Textures;
@@ -52,7 +51,7 @@ public class BirdGame extends BasicGame {
         
 		tex = new Textures(this);
 		map = new Map();
-		p = new Player(150, 500, tex, map);
+		p = new Player(150, 500, tex);
 		c = new Controls(this, p, map);
 		collision = new CollisionDetect(p, c, map);
 

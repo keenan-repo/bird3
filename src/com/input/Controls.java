@@ -1,9 +1,6 @@
 package com.input;
 
 import org.newdawn.slick.Input;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
-
 import com.BirdGame;
 import com.map.Map;
 import com.player.Player;

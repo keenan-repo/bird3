@@ -1,21 +1,9 @@
 package com.player;
 
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-
-//import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import com.BirdGame;
-import com.img.ImageLoader;
 import com.img.Textures;
-import com.map.Map;
 
 
 public class Player {
@@ -26,14 +14,13 @@ public class Player {
 	Shape B;
     
     private Textures tex;
-    private Map map;
+
     
     
-    public Player(float x, float y, Textures tex, Map map){
+    public Player(float x, float y, Textures tex){
         this.x = x;
         this.y = y;
         this.tex = tex;
-        this.map = map;
                
         T = new Rectangle(x, y - 2, 32, 2);
         B = new Rectangle(x, y + 32, 32, 2);
@@ -54,14 +41,6 @@ public class Player {
     }
     
     public void render(Graphics g){
-        AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
-        
-        /*if(velX>0 && (keys[KeyEvent.VK_LEFT] || keys[KeyEvent.VK_RIGHT])){
-            tx.translate(-birdImg.getWidth(null), 0);
-            AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-            birdImg = op.filter(birdImg, null);
-            swap=false;
-        } */
         
         //Graphics2D g2d = (Graphics2D)g;
         g.drawImage(tex.player, (float)x, (float)y, null);

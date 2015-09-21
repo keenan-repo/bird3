@@ -1,7 +1,5 @@
 package physics;
 
-import org.newdawn.slick.geom.Rectangle;
-
 import com.input.Controls;
 import com.map.Map;
 import com.player.Player;
