@@ -2,9 +2,10 @@ package com.player;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 //import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -14,36 +15,41 @@ import java.io.IOException;
 import com.BirdGame;
 import com.img.ImageLoader;
 import com.img.Textures;
+import com.map.Map;
 
 
 public class Player {
     
-    private double x, velX = 0;
-    private double y, velY = 0;
-    private Rectangle T, B, L, R;
+    private float x, velX = 0;
+    private float y, velY = 0;
+    private Rectangle T, L, R;
+	Shape B;
     
     private Textures tex;
+    private Map map;
     
     
-    public Player(double x, double y, Textures tex){
+    public Player(float x, float y, Textures tex, Map map){
         this.x = x;
         this.y = y;
         this.tex = tex;
+        this.map = map;
                
-        T = new Rectangle((int)x, (int)y - 8, 32, 8);
-        B = new Rectangle((int)x, (int)y + 33, 32, 8);
-        R = new Rectangle((int)x+32, (int)y, 8, 32);
-        L = new Rectangle((int)x-8, (int)y, 8, 32);
+        T = new Rectangle(x, y - 2, 32, 2);
+        B = new Rectangle(x, y + 32, 32, 2);
+        R = new Rectangle(x+32, y, 2, 32);
+        L = new Rectangle(x-2, y, 2, 32);
     }
     
     public void tick(){
         x += velX;
         y += velY;
-        T.x=(int)x; T.y=(int)y-8;
-        B.x=(int)x; B.y=(int)y+33;
+        T.setLocation(x, y-2);
+        B.setLocation(x, y+33);
+        R.setLocation(x+32, y);
+        L.setLocation(x-2, y);
         
-        R.x=(int)x+33; R.y=(int)y;
-        L.x=(int)x-8; L.y=(int)y;
+       System.out.println(x + " , " + y);
 
     }
     
@@ -59,25 +65,25 @@ public class Player {
         
         //Graphics2D g2d = (Graphics2D)g;
         g.drawImage(tex.player, (float)x, (float)y, null);
-        /*g2d.draw(B);
-        g2d.draw(T);
-        g2d.draw(R);
-        g2d.draw(L);*/
+        /*g.draw(B);
+        g.draw(T);
+        g.draw(R);
+        g.draw(L);*/
     }
     /* Start getters and setters */
-    public Rectangle getT(){return T;}
-    public Rectangle getB(){return B;}
-    public Rectangle getL(){return L;}
-    public Rectangle getR(){return R;}
+    public Shape getT(){return T;}
+    public Shape getB(){return B;}
+    public Shape getL(){return L;}
+    public Shape getR(){return R;}
     
-    public double getY(){return y;}
-    public void setY(double y){this.y = y;}
+    public float getY(){return y;}
+    public void setY(float y){this.y = y;}
     
-    public double getX(){return x;}
-    public void setX(double x){this.x = x;}
+    public float getX(){return x;}
+    public void setX(float x){this.x = x;}
     
-    public void setVelY(double velY){this.velY = velY;}
+    public void setVelY(float velY){this.velY = velY;}
     
-    public void setVelX(double velX){this.velX = velX;}
+    public void setVelX(float velX){this.velX = velX;}
     
 }

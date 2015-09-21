@@ -1,19 +1,24 @@
 package com.input;
 
 import org.newdawn.slick.Input;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 import com.BirdGame;
+import com.map.Map;
 import com.player.Player;
 
 public class Controls {
 	
 	private BirdGame game;
 	private Player p;
-	private int spdL = 5, spdR = 5, spdD = 5, spdU = 5;
-	
-	public Controls(BirdGame game, Player p){
+	private Map map;
+	private float spdL, spdR, spdD, spdU;
+	private int jump = 301;
+	public Controls(BirdGame game, Player p, Map map){
 		this.game = game;
 		this.p = p;
+		this.map = map;
 	}
 
 	public void processInput() {
@@ -28,64 +33,70 @@ public class Controls {
 	
 	// TODO Make the screen scroll smooth. It should have an acceleration and deacceleration to it
 	
+	int MAX_JUMP = 200;
 	// If the up key is pressed move the bird up for 4 iterations. This is done to make the movement smooth
 	// instead of moving up in 1 frame
-	/*if(jump <= MAX_JUMP){ 
-	    p.setVelY(-spdU);
+	if(jump <= MAX_JUMP){ 
+	    p.setVelY((float)(-(spdU*25/(jump))-0.5));
 		jump++;
 	} else if (jump > MAX_JUMP) {
-	    p.setVelY(spdD);
-	}*/
+	    p.setVelY(spdD*2);
+	}
 	
 	// If the w key or the up key is pressed, jump
-	// If the up direction key is used
-	if(game.getKeys()[Input.KEY_UP]){	  
-		//playJump(); 	    	// Play the jump sound!
-	// This is where we check to see if we're on the ground or a surface. 
-	/*for(int i = 0 ; i < lenIn; i++){
-	    if(p.getB().intersects(blocksOnScreen[i])) { // if it intersects with a block
-	    jump = 0;
-	    System.out.println("up");
-	} else if (!p.getB().intersects(bounds)){ // if it intersects with the bottom of the map
-	            jump = 0;                   
-	        }
-	    }     */
-		p.setVelY(-1);
-		//game.getKeys()[Input.KEY_UP]=false;
 	
+	if(game.getKeys()[Input.KEY_UP]){
+		
+		// This is where we check to see if we're on the ground or a surface. 
+		for(int i = 0 ; i < map.getLen_IN(); i++){
+		    if(p.getB().intersects(map.getBlocksOnScreen()[i])) { // if it intersects with a block
+		    jump = 1;
+		    } else if (!p.getB().intersects(map.getBounds())){ // if it intersects with the bottom of the map
+		            jump = 1;      
+		            
+		    } else if (jump > MAX_JUMP-10){
+		    	jump = 1;
+		    }
+		}     
+		
+		
+		game.getKeys()[Input.KEY_UP]=false;	
 	}
+		
+	
 	
 	// We will only need this if the bird is going into a hole or some other reason to go down
 	
 	
-	/*if(game.getKeys()[Input.KEY_DOWN]){
-	    if(p.getX() < 100) {
-	        screenx -= 3;
-	        p.setVelX(0);
-	    } else if (p.getX() > 100)            
-	        p.setVelX(-spdL); 	                 
+	if(game.getKeys()[Input.KEY_DOWN]){
+	   if(p.getY() > 630) {
+	        p.setVelY(0);
+	    } else if (p.getX() > 100) {           
+	        p.setVelY(-spdL); 	    
+	    	}
+		p.setVelY(spdD);
 	    }   
-		p.setVelY(-spdD);
-	}
+
+	
 	
 	// If the left direction key is used
 	if(game.getKeys()[Input.KEY_LEFT]){
 	    if(p.getX() < 100) {
-	        screenx -= 3;
+	        map.setScreenX((float)(map.getScreenX()-0.5));
 	        p.setVelX(0);
-	    } else if (p.getX() > 100)            
+	    } else if (p.getX() > 100){            
 	        p.setVelX(-spdL); 	                 
 	    }    
-		p.setVelY(-spdL);
+		p.setVelX(-spdL);
 	}
 	
 	// If the right direction key is used
 	if(game.getKeys()[Input.KEY_RIGHT]){
-	    swap=true;
+
 	    if(p.getX() > 900) {
-	        screenx += 3;
+	    	map.setScreenX((float)(map.getScreenX()+0.5));
 	        p.setVelX(0);
-	    } else if (p.getX() < 900)            
+	    } else if (p.getX() < 900){        
 	        p.setVelX(spdR);                    
 	    }   
 		p.setVelX(spdR);
@@ -95,7 +106,7 @@ public class Controls {
 	// Always set the birds speed to be downwards
 	// TODO add a proper gravity. Maybe a floor or a check if they fall off a cliff
 	
-	for(int i = 0 ; i < lenIn; i++){
+	/*for(int i = 0 ; i < lenIn; i++){
 	    if(!p.getB().intersects(squaresIn[i])) { // if it intersects with a block
 	        p.setVelY(spdD);
 	    } else if (p.getB().intersects(bounds)){ // if it intersects with the bottom of the map
@@ -106,8 +117,49 @@ public class Controls {
 	        c.addBullet(new Bullet(p.getX(), p.getY(), tex));
 	        is_shooting = true;
 	        keys[KeyEvent.VK_SPACE]=false;
+	    }
+	   */ 
+	
+		if (p.getY() > 630){
+			p.setVelY((float)-0.5);
+			map.setScreenY((float)(map.getScreenY()+0.5));
+		}
+		if (p.getY() < 60){
+			p.setVelY((float)+0.5);
+			map.setScreenY((float)(map.getScreenY()-0.5));
+		}
 	}
-	    */
+	
+	public float getSpdL() {
+		return spdL;
+	}
+
+	public void setSpdL(float spdL) {
+		this.spdL = spdL;
+	}
+
+	public float getSpdR() {
+		return spdR;
+	}
+
+	public void setSpdR(float spdR) {
+		this.spdR = spdR;
+	}
+
+	public float getSpdD() {
+		return spdD;
+	}
+
+	public void setSpdD(float spdD) {
+		this.spdD = spdD;
+	}
+
+	public float getSpdU() {
+		return spdU;
+	}
+
+	public void setSpdU(float spdU) {
+		this.spdU = spdU;
 	}
 }
 

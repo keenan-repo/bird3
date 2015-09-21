@@ -10,18 +10,27 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 
 import com.img.ImageLoader;
 import com.img.Textures;
 import com.input.Controls;
+import com.map.Map;
 import com.player.Player;
+
+import physics.CollisionDetect;
 
 public class BirdGame extends BasicGame {
     
+	
+	public static final int WIDTH = 1080;
+	public static final int HEIGHT = WIDTH / 3 * 2;
 	private Image spriteSheet, wood, Level_1;
 	private Player p;
 	private Textures tex;
 	private Controls c;
+	private Map map;
+	private CollisionDetect collision;
 	private boolean keys[] = new boolean[300];
 
 	public BirdGame(String title) {
@@ -42,13 +51,22 @@ public class BirdGame extends BasicGame {
         }
         
 		tex = new Textures(this);
-		p = new Player(150, 500, tex);
-		c = new Controls(this, p);
+		map = new Map();
+		p = new Player(150, 500, tex, map);
+		c = new Controls(this, p, map);
+		collision = new CollisionDetect(p, c, map);
+
 
 	}
 
-	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
+
+		collision.check();
+		/*c.setSpdD(1);
+		c.setSpdL(1);
+		c.setSpdR(1);
+		c.setSpdU(1);*/
+		
 		c.processInput();
 		p.tick();
 		//System.out.println(keys[Input.KEY_UP]);
@@ -56,6 +74,7 @@ public class BirdGame extends BasicGame {
 	}
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
+		map.render(g, WIDTH, HEIGHT);
 		p.render(g);
 		//g.drawImage(getSpriteSheet(), 100,100, null);
 
@@ -80,7 +99,7 @@ public class BirdGame extends BasicGame {
 	public static void main(String[] args) {
 		try {
 			AppGameContainer container = new AppGameContainer(new BirdGame("Bird Game"));
-			container.setDisplayMode(800,600,false);
+			container.setDisplayMode(WIDTH,HEIGHT,false);
 			container.start();
 		} catch (SlickException e) {
 			e.printStackTrace();
