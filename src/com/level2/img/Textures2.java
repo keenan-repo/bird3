@@ -1,19 +1,19 @@
-package com.img;
+package com.level2.img;
 
 import org.newdawn.slick.Image;
 
-import com.BirdGame;
+import com.level2.Launch2;
 
 
-public class Textures {
+public class Textures2 {
     
-    public Image player;
+    public Image player, wood, missle, enemy;
     
     private SpriteSheet ss;
 
-	private BirdGame game;
+	private Launch2 game;
 
-    public Textures(BirdGame game){
+    public Textures2(Launch2 game){
     	this.game = game;
 
         ss = new SpriteSheet(game.getSpriteSheet());
@@ -26,7 +26,8 @@ public class Textures {
     private void getTextures(){
 
         player = ss.grabImage(1, 1, 32, 32);
-        //missle = ss.grabImage(2, 1, 32, 32);
-        //enemy = ss.grabImage(3, 1, 32, 32);
+        wood = ss.grabImage(4, 1, 32, 32);
+        missle = ss.grabImage(2, 1, 32, 32);
+        enemy = ss.grabImage(3, 1, 32, 32);
     }
 }

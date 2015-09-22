@@ -1,9 +1,11 @@
-package com.player;
+package com.level1.player;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-import com.img.Textures;
+
+import com.level1.img.Textures;
 
 
 public class Player {
@@ -35,14 +37,13 @@ public class Player {
         B.setLocation(x, y+33);
         R.setLocation(x+32, y);
         L.setLocation(x-2, y);
-        
-       System.out.println(x + " , " + y);
 
     }
     
     public void render(Graphics g){
         
         //Graphics2D g2d = (Graphics2D)g;
+    	g.setColor(Color.white);
         g.drawImage(tex.player, (float)x, (float)y, null);
         /*g.draw(B);
         g.draw(T);

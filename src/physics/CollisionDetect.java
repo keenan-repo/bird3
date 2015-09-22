@@ -1,48 +1,50 @@
 package physics;
 
-import com.input.Controls;
-import com.map.Map;
-import com.player.Player;
+
+import org.newdawn.slick.geom.Rectangle;
+
+
+import com.level1.player.Player;
+
 
 public class CollisionDetect {
 	private Player p;
-	private Controls c;
-	private Map map;
+
+	private float[] Speeds = new float[4]; //0 = up, 1 = right, 2 = down 3 = left
 	
-	public CollisionDetect(Player p, Controls c, Map map) {
-		this.p = p;
-		this.c = c;
-		this.map = map;
+	public CollisionDetect(Player p) {
+		this.p = p;	
 		}
 	
-	 public void check() {	
-			c.setSpdD((float) 0.5);
-			c.setSpdL((float) 0.5);
-			c.setSpdR((float) 0.5);
-			c.setSpdU((float) 0.5);
-			for (int i = 0; i < map.getLen_IN(); i++){
-				if (p.getT().intersects(map.getBlocksOnScreen()[i])) 
-				    c.setSpdU(0);
-				if(p.getB().intersects(map.getBlocksOnScreen()[i])) {
-				    c.setSpdD(0);
+
+	public float[] check(Rectangle[] rectangles, Rectangle bounds, int Len_IN) {	
+			Speeds[0] = ((float) 0.5);
+			Speeds[1] =((float) 0.5);
+			Speeds[2] =((float) 0.5);
+			Speeds[3] =((float) 0.5);
+			for (int i = 0; i < Len_IN; i++){
+				if (p.getT().intersects(rectangles[i])) 
+					Speeds[0] =  0;
+				if(p.getB().intersects(rectangles[i])) {
+					Speeds[2] = 0;
 			}
-				if(p.getR().intersects(map.getBlocksOnScreen()[i])) 
-					c.setSpdR(0);       
-				if(p.getL().intersects(map.getBlocksOnScreen()[i])) 
-				    c.setSpdL(0);
+				if(p.getR().intersects(rectangles[i])) 
+					Speeds[1] = 0;       
+				if(p.getL().intersects(rectangles[i])) 
+					Speeds[3] = 0;
 			}
-			
-			
-				if (!p.getT().intersects(map.getBounds())) 
-				    c.setSpdU(0);
-				if(!p.getB().intersects(map.getBounds())) {
-				    c.setSpdD(0);
+					
+				if (!p.getT().intersects(bounds)) 
+					Speeds[0] = 0;
+				if(!p.getB().intersects(bounds)) {
+					Speeds[2] = 0;
 			}
-				if(!p.getR().intersects(map.getBounds())) 
-					c.setSpdR(0);       
-				if(!p.getL().intersects(map.getBounds())) 
-				    c.setSpdL(0);
-			
+				if(!p.getR().intersects(bounds)) 
+					Speeds[1] = 0;        
+				if(!p.getL().intersects(bounds)) 
+					Speeds[3] = 0;
+				
+				return Speeds;
 			
 	 }
 }

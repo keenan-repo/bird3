@@ -1,4 +1,4 @@
-package com.img;
+package com.level1.img;
 
 import org.newdawn.slick.Image;
 

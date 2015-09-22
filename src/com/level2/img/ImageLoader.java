@@ -1,4 +1,4 @@
-package com.img;
+package com.level2.img;
 
 
 
@@ -16,7 +16,6 @@ public class ImageLoader {
         try {
 			image = new Image(path);
 		} catch (SlickException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         return image;

@@ -1,30 +1,32 @@
-package com.input;
+package com.level2.input;
 
 import org.newdawn.slick.Input;
-import com.BirdGame;
-import com.map.Map;
-import com.player.Player;
 
-public class Controls {
+
+import com.level1.player.Player;
+import com.level2.Launch2;
+import com.level2.map.Map2;
+
+public class Controls2 {
 	
-	private BirdGame game;
+	private Launch2 game;
 	private Player p;
-	private Map map;
-	private float spdL, spdR, spdD, spdU;
+	private Map2 map;
+	private float[] Speeds = new float[3]; //0 = up, 1 = right, 2 = down 3 = left
+
 	private int jump = 301;
-	public Controls(BirdGame game, Player p, Map map){
+	private boolean doubleJump = false;
+	
+	public Controls2(Launch2 game, Player p, Map2 map){
 		this.game = game;
 		this.p = p;
 		this.map = map;
 	}
-
-	public void processInput() {
-		
 	
+	public void processInput(float[] Speeds) {
 		
-		//System.out.println(game.getKeys()[Input.KEY_UP]);
 		    
-	   // TODO This class needs to be cleaned up as well. We need to decide the range of motions we want for the bird
+	 // TODO This class needs to be cleaned up as well. We need to decide the range of motions we want for the bird
 	// this will also change as we fix the collision detection
 	// I was just adding things to make it work for now
 	
@@ -34,10 +36,11 @@ public class Controls {
 	// If the up key is pressed move the bird up for 4 iterations. This is done to make the movement smooth
 	// instead of moving up in 1 frame
 	if(jump <= MAX_JUMP){ 
-	    p.setVelY((float)(-(spdU*25/(jump))-0.5));
+	    p.setVelY((float)(-(Speeds[0]*25/(jump))-0.5));
 		jump++;
 	} else if (jump > MAX_JUMP) {
-	    p.setVelY(spdD*2);
+	    p.setVelY(Speeds[2]*2);
+	    System.out.println(Speeds[2]);
 	}
 	
 	// If the w key or the up key is pressed, jump
@@ -48,11 +51,13 @@ public class Controls {
 		for(int i = 0 ; i < map.getLen_IN(); i++){
 		    if(p.getB().intersects(map.getBlocksOnScreen()[i])) { // if it intersects with a block
 		    jump = 1;
+		    doubleJump = true;
 		    } else if (!p.getB().intersects(map.getBounds())){ // if it intersects with the bottom of the map
 		            jump = 1;      
-		            
-		    } else if (jump > MAX_JUMP-10){
+		            doubleJump = true;
+		    } else if (jump > MAX_JUMP-50 && doubleJump){
 		    	jump = 1;
+		    	doubleJump = false;
 		    }
 		}     
 		
@@ -62,16 +67,8 @@ public class Controls {
 		
 	
 	
-	// We will only need this if the bird is going into a hole or some other reason to go down
-	
-	
+	// We will only need this if the bird is going into a hole or some other reason to go down	
 	if(game.getKeys()[Input.KEY_DOWN]){
-	   if(p.getY() > 630) {
-	        p.setVelY(0);
-	    } else if (p.getX() > 100) {           
-	        p.setVelY(-spdL); 	    
-	    	}
-		p.setVelY(spdD);
 	    }   
 
 	
@@ -82,9 +79,9 @@ public class Controls {
 	        map.setScreenX((float)(map.getScreenX()-0.5));
 	        p.setVelX(0);
 	    } else if (p.getX() > 100){            
-	        p.setVelX(-spdL); 	                 
+	        p.setVelX(-Speeds[3]); 	                 
 	    }    
-		p.setVelX(-spdL);
+		p.setVelX(-Speeds[3]);
 	}
 	
 	// If the right direction key is used
@@ -94,23 +91,13 @@ public class Controls {
 	    	map.setScreenX((float)(map.getScreenX()+0.5));
 	        p.setVelX(0);
 	    } else if (p.getX() < 900){        
-	        p.setVelX(spdR);                    
+	        p.setVelX(Speeds[1]);                    
 	    }   
-		p.setVelX(spdR);
+		p.setVelX(Speeds[1]);
 	}
 	
 	 
-	// Always set the birds speed to be downwards
-	// TODO add a proper gravity. Maybe a floor or a check if they fall off a cliff
-	
-	/*for(int i = 0 ; i < lenIn; i++){
-	    if(!p.getB().intersects(squaresIn[i])) { // if it intersects with a block
-	        p.setVelY(spdD);
-	    } else if (p.getB().intersects(bounds)){ // if it intersects with the bottom of the map
-	        spdD=0;                   
-	    }
-	} 
-	    if (keys[KeyEvent.VK_SPACE] && !is_shooting){
+	    /*if (keys[KeyEvent.VK_SPACE] && !is_shooting){
 	        c.addBullet(new Bullet(p.getX(), p.getY(), tex));
 	        is_shooting = true;
 	        keys[KeyEvent.VK_SPACE]=false;
@@ -127,36 +114,12 @@ public class Controls {
 		}
 	}
 	
-	public float getSpdL() {
-		return spdL;
+	public float[] getSpeeds() {
+		return Speeds;
 	}
 
-	public void setSpdL(float spdL) {
-		this.spdL = spdL;
-	}
-
-	public float getSpdR() {
-		return spdR;
-	}
-
-	public void setSpdR(float spdR) {
-		this.spdR = spdR;
-	}
-
-	public float getSpdD() {
-		return spdD;
-	}
-
-	public void setSpdD(float spdD) {
-		this.spdD = spdD;
-	}
-
-	public float getSpdU() {
-		return spdU;
-	}
-
-	public void setSpdU(float spdU) {
-		this.spdU = spdU;
+	public void setSpeeds(float[] speeds) {
+		Speeds = speeds;
 	}
 }
 
