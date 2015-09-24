@@ -11,7 +11,7 @@ public class Textures2 {
     
     private SpriteSheet ss;
 
-	private Launch2 game;
+	Launch2 game;
 
     public Textures2(Launch2 game){
     	this.game = game;

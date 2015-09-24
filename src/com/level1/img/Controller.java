@@ -5,7 +5,6 @@ import org.newdawn.slick.Graphics;
 
 import com.level1.Launch1;
 import com.level1.map.Map1;
-import com.level1.player.Player;
 import com.level1.units.Enemy;
 
 
@@ -19,7 +18,7 @@ public class Controller {
     
     Launch1 game;
     Textures tex;
-	private Map1 map;
+	Map1 map;
     
     public Controller( Textures tex, Map1 map){
         this.tex = tex;
@@ -51,13 +50,21 @@ public class Controller {
         for(int i = 0; i < b.size(); i++){
             TempBullet = b.get(i);
             
+            if (TempBullet.getX() > 1500){
+            	b.remove(i);
+            } else if (TempBullet.getX() < -10){
+            	b.remove(i);
+            }
+            
             TempBullet.render(g);
         }
         
         for(int i = 0; i < e.size(); i++){
-            TempEnemy = e.get(i);;
-            
+            TempEnemy = e.get(i);
             TempEnemy.render(g);
+            
+            
+            
         }
         
     }

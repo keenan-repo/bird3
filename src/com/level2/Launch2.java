@@ -1,9 +1,6 @@
 package com.level2;
 
-import java.io.IOException;
 
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -15,7 +12,6 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import com.Menu;
-import com.level1.img.Bullet;
 import com.level1.img.Textures;
 import com.level1.player.Player;
 import com.level1.player.Player.Direction;
@@ -28,7 +24,7 @@ public class Launch2 extends BasicGameState {
 
 	public static final int WIDTH = 1080;
 	public static final int HEIGHT = WIDTH / 3 * 2;
-	private Image spriteSheet, wood, Level_2;
+	private Image spriteSheet, Level_2;
 	private Player p;
 	private Textures tex;
 	private Controls2 c;

@@ -5,7 +5,6 @@ import org.newdawn.slick.Graphics;
 
 import com.level1.img.Textures;
 import com.level1.map.Map1;
-import com.level1.player.Player;
 
 
 public class Enemy {

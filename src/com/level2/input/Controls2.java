@@ -59,14 +59,10 @@ public class Controls2 {
 		    	jump = 1;
 		    	doubleJump = false;
 		    }
-		}     
-		
-		
+		}     		
 		game.getKeys()[Input.KEY_UP]=false;	
 	}
-		
-	
-	
+				
 	// We will only need this if the bird is going into a hole or some other reason to go down	
 	if(game.getKeys()[Input.KEY_DOWN]){
 	    }   

@@ -29,6 +29,7 @@ public class Bullet {
     	} else {
     		x += 0.8;
     	}
+    	System.out.println(x + " , " + y);
     }
     
 	public void render(Graphics g){

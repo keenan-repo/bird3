@@ -4,7 +4,6 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.level1.Launch1;
@@ -23,9 +22,12 @@ public class SetupClass extends StateBasedGame {
 	}
 	
 	public static void main(String[] args) {
+		
 		try {
 			AppGameContainer container = new AppGameContainer(new SetupClass("Bird Game"));
 			container.setDisplayMode(WIDTH, HEIGHT, false);
+			container.setTargetFrameRate(1000);
+			container.getAlwaysRender();
 			container.start();
 		} catch (SlickException e) {
 			e.printStackTrace();

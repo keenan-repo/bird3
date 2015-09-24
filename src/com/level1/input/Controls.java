@@ -22,7 +22,7 @@ public class Controls {
 	private boolean doubleJump = false;
 	private boolean is_shooting;
 	private boolean dir = false;
-	private int dash = 301;
+	//private int dash = 301;
 	
 	public Controls(Launch1 game, Player p, Map1 map, Textures tex, Controller controller){
 		this.game = game;
@@ -82,7 +82,7 @@ public class Controls {
 	
 	// If the left direction key is used
 	if(game.getKeys()[Input.KEY_LEFT]){
-		dash  = 0;
+		//dash  = 0;
 		
 	    if(p.getX() < 100) {
 	        map.setScreenX((float)(map.getScreenX()-0.5));
@@ -108,7 +108,6 @@ public class Controls {
 		dir = false;
 	}
 	
-	 
 	    if (game.getKeys()[Input.KEY_SPACE] && !is_shooting){
 	        controller.addBullet(new Bullet(p.getX(), p.getY(), tex, dir ));
 	        is_shooting = true;	 

@@ -64,12 +64,13 @@ public class Map1 {
         
 	       if(screenX < width){
 	    	   g.drawImage(background, -screenX, -screenY);
-	       }   if(screenX > 0){
+	       }   if(screenX > 0 && screenX < width*2){
 	    	   g.drawImage(background, -screenX+width, -screenY);
-           }  if (screenX > width) {
+           }  if (screenX > width && screenX < width*3) {
         	   g.drawImage(background, -screenX+width*2, -screenY);
-           } if (screenX > width*2) {
+           } if (screenX > width*2  && screenX < width*4) {
         	   g.drawImage(background, -screenX+width*3, -screenY);
+
            }
         
         
