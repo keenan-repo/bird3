@@ -5,6 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
+import com.level1.img.Bullet;
 import com.level1.img.Textures;
 
 
@@ -16,6 +17,11 @@ public class Player {
 	Shape B;
     
     private Textures tex;
+	
+	public static enum Direction{
+	      LEFT, RIGHT
+	}
+	public Direction direction = Direction.RIGHT;
 
     
     
@@ -44,7 +50,18 @@ public class Player {
         
         //Graphics2D g2d = (Graphics2D)g;
     	g.setColor(Color.white);
-        g.drawImage(tex.player, (float)x, (float)y, null);
+
+    			
+		switch(direction){	    
+	    case LEFT:
+	    	g.drawImage(tex.playerL, (float)x, (float)y, null);
+	    	
+	        break;
+	    case RIGHT:
+	    	g.drawImage(tex.playerR, (float)x, (float)y, null);
+	        break;
+		}
+        
         /*g.draw(B);
         g.draw(T);
         g.draw(R);

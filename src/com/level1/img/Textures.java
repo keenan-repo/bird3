@@ -6,29 +6,32 @@ import org.newdawn.slick.SlickException;
 
 public class Textures {
     
-    public Image player, wood, missle, enemy;
+    public Image playerL, missle, enemy, playerR, wood;
     
-    private SpriteSheet ss;
+
+	private org.newdawn.slick.SpriteSheet ss;
+
+	private Image sprites;
 
 
     public Textures(){
 
         try {
-			ss = new SpriteSheet(new Image("sprite_sheet.png"));
+			sprites = new Image("sprite_sheet.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-        //Image player = ss.getSubImage(1, 1, 32, 32);
+        ss = new org.newdawn.slick.SpriteSheet(sprites , 32, 32);
         getTextures();
         
         
     }
     
     private void getTextures(){
-
-        player = ss.grabImage(1, 1, 32, 32);
-        wood = ss.grabImage(4, 1, 32, 32);
-        missle = ss.grabImage(2, 1, 32, 32);
-        enemy = ss.grabImage(3, 1, 32, 32);
+        playerL = ss.getSprite(0, 0);
+        playerR = ss.getSprite(0, 1);
+        missle  = ss.getSprite(1, 0);
+        enemy   = ss.getSprite(2, 0);
+        wood    = ss.getSprite(3,0);
     }
 }

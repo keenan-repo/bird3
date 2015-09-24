@@ -35,14 +35,14 @@ public class SetupClass extends StateBasedGame {
 
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
-		this.addState((GameState) new Launch1());
+		this.addState(new Launch1());
 		this.addState(new Menu());
 		this.addState(new Launch2());
 		
 		
 	}
 	public void render(Graphics g) {
-		System.out.println("this is on top");
+
 	}
 
 }

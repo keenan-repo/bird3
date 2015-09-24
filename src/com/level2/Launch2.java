@@ -15,10 +15,10 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import com.Menu;
-import com.level1.img.ImageLoader;
+import com.level1.img.Bullet;
 import com.level1.img.Textures;
 import com.level1.player.Player;
-
+import com.level1.player.Player.Direction;
 import com.level2.input.Controls2;
 import com.level2.map.Map2;
 
@@ -38,16 +38,9 @@ public class Launch2 extends BasicGameState {
 
 
 	public void init(GameContainer container, StateBasedGame arg1) throws SlickException {
-		ImageLoader loader = new ImageLoader();
-		try {
-			spriteSheet = loader.loadImage("sprite_sheet.png");
-			Level_2 = loader.loadImage("Level2.png");
-			// wood = loader.loadImage("wood.png");
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		spriteSheet = new Image("sprite_sheet.png");
+		Level_2 = new Image("Level2.png");
+		
 		tex = new Textures();
 		map = new Map2(tex, this);
 		p = new Player(150, 500, tex);
@@ -67,7 +60,11 @@ public class Launch2 extends BasicGameState {
 		
 		if(container.getInput().isKeyPressed(Input.KEY_ESCAPE)){
 			Menu.previousState = getID();
-			sbg.enterState(0, new FadeOutTransition(), new FadeInTransition());
+			sbg.enterState(0, new FadeOutTransition(), new FadeInTransition());				
+		}
+		if(p.getY()+map.getScreenY() > 800 ){			
+			sbg.enterState(1, new FadeOutTransition(), null);
+			p.setX(150); p.setY(500); map.setScreenX(0); map.setScreenY(0);
 			
 		}
 
@@ -89,6 +86,12 @@ public class Launch2 extends BasicGameState {
 
 	public void keyPressed(int key, char code) {
 		keys[key] = true;
+		if(keys[Input.KEY_LEFT]){
+			p.direction = Direction.LEFT;
+		}
+		if(keys[Input.KEY_RIGHT]){
+			p.direction = Direction.RIGHT;
+		}
 	}
 	
 	public int getID() {

@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import org.newdawn.slick.Graphics;
 
 import com.level1.Launch1;
+import com.level1.map.Map1;
+import com.level1.player.Player;
 import com.level1.units.Enemy;
 
 
@@ -17,11 +19,13 @@ public class Controller {
     
     Launch1 game;
     Textures tex;
+	private Map1 map;
     
-    public Controller( Textures tex){
+    public Controller( Textures tex, Map1 map){
         this.tex = tex;
+        this.map = map;
  
-        addEnemy(new Enemy(200, 200, tex));
+        addEnemy(new Enemy(650, 368, tex, map));
     }
     
 

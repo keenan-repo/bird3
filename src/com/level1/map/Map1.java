@@ -3,17 +3,12 @@ package com.level1.map;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.ShapeFill;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.fills.GradientFill;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.ShapeRenderer;
 import org.newdawn.slick.geom.TexCoordGenerator;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.tests.TexturePaintTest;
-
-import com.level1.Launch1;
 import com.level1.img.Textures;
 
 public class Map1 {
@@ -34,7 +29,7 @@ public class Map1 {
 		this.tex = tex;
 	    for (int i = 1; i < 100; i++){
 	        double r = Math.random()*50;
-	        blocks[0][i]=new Rectangle(100*i, (int)(600+r), 0, 0 ); 
+	        blocks[0][i]=new Rectangle(1000*i, (int)(600+r), 0, 0 ); 
 	    }
 		
 	    blocks[0][0]=new Rectangle(0, 600, 500, 25); // lower
@@ -91,8 +86,8 @@ public class Map1 {
                 len_IN++;                  
             }
         }
-        g.draw(bounds);
-        g.draw(outerScreen);
+        //g.draw(bounds);
+        //g.draw(outerScreen);
         
 
 	}
